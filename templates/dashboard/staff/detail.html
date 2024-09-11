@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+    /* Detail View Styles */
+    .detail-container {
+        background-color: #f8f9fc;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .detail-container h1 {
+        color: #4e73df;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .detail-group {
+        margin-bottom: 15px;
+    }
+
+    .detail-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #4e73df;
+    }
+
+    .detail-group p {
+        margin: 0;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #d1d3e2;
+        border-radius: 5px;
+    }
+
+    .btn-container {
+        margin-top: 20px;
+    }
+
+    .btn-container a {
+        background-color: #4e73df;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-container a:hover {
+        background-color: #2e59d9;
+    }
+
+    .btn-container a.delete {
+        background-color: #e74a3b;
+    }
+
+    .btn-container a.delete:hover {
+        background-color: #c82333;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .detail-container {
+            padding: 15px;
+        }
+
+        .btn-container a {
+            padding: 8px 15px;
+            font-size: 0.9em;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="detail-container">
+                <h1>Employee Detail</h1>
+                <div class="detail-group">
+                    <label for="full_name">Full Name:</label>
+                    <p>{{ employee.full_name }}</p>
+                </div>
+                <div class="detail-group">
+                    <label for="is_staff">Is Active:</label>
+                    <p>{{ employee.is_active|yesno:"Yes,No" }}</p>
+                </div>
+                <div class="detail-group">
+                    <label for="full_name">Position:</label>
+                    <p>{{ employee.position }}</p>
+                </div>
+                <div class="btn-container">
+                    <a href="{% url 'staff_list' %}">Back to List</a>
+                    <a href="#">Edit</a>
+                    <a href="{% url 'staff_delete' employee.id %}" class="delete">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
