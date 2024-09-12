@@ -136,7 +136,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Employee Data
-                    <a href="{% url 'shift_create' %}" class="btn-create">Create New</a>
+                    <a href="{% url 'staffShift_create' %}" class="btn-create">Create New</a>
                 </div>
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
@@ -144,23 +144,18 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Shift Type</th>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th class="center-actions">Actions</th>
+                                    <th>Full Name</th>
+                                    <th>Shift</th>
+                                    <th>Position</th>
                                 </tr>
-                            </thead>
+                            </thead>  
                             <tbody>
-                                {% for shift in shifts %}
+                                {% for staff in employees %}
                                 <tr class="gradeU">
                                     <td>{{ forloop.counter }}</td>
-                                    <td><a href="{% url 'shift_filtered' shift.id %}">{{ shift.shift_type }}</a></td>
-                                    <td>{{ shift.start_time }}</td>
-                                    <td>{{ shift.end_time }}</td>
-                                    <td class="center-actions">
-                                        <a href="{% url 'shift_update' shift.id %}" title="Edit"><i class="fas fa-edit"></i></a>
-                                        <a href="{% url 'shift_delete' shift.id %}" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
+                                    <td>{{ staff.employee.full_name }}</td>
+                                    <td>{{staff.shift}}</td>
+                                    <td>{{staff.employee.position}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

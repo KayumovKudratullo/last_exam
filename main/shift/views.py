@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from main import models
 
-
+@login_required(login_url='login')
 def list(request):
     shifts=models.Shift.objects.all()
     context = {
@@ -11,6 +11,7 @@ def list(request):
     }
     return render(request,'dashboard/shift/list.html', context)
 
+@login_required(login_url='login')
 def create(request):
     if request.method == 'POST':
         models.Shift.objects.create(
@@ -21,10 +22,12 @@ def create(request):
         return redirect('shift_list')
     return render(request, 'dashboard/shift/create.html')
 
+@login_required(login_url='login')
 def delete(request, id):
     models.Shift.objects.get(id=id).delete()
     return redirect('shift_list')
 
+@login_required(login_url='login')
 def update(request, id):
     shift = models.Shift.objects.get(id=id)
     if request.method == 'POST':
@@ -34,3 +37,8 @@ def update(request, id):
         shift.save()
         return redirect('shift_list')
     return render(request, 'dashboard/shift/update.html', {'shift':shift})
+
+@login_required(login_url='login')
+def filtered(request, id):
+    shift_staff = models.StaffShift.objects.filter(shift=id)
+    return render(request, 'dashboard/shift/filtered.html', {"shift_staff":shift_staff})

@@ -8,4 +8,5 @@ urlpatterns = [
     path('create/', views.create, name='shift_create' ),
     path('delete/<int:id>/', views.delete, name='shift_delete'),
     path('update/<int:id>/', views.update, name='shift_update'),
+    path('filtered/<int:id>/', views.filtered, name='shift_filtered'),
 ]

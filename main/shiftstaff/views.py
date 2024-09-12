@@ -1,39 +1,32 @@
 from django.shortcuts import render , redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
-
 from main import models
 
 @login_required(login_url='login')
 def list(request):
-    employe=models.Employee.objects.all()
+    employe=models.StaffShift.objects.all()
     context = {
         'employees':employe
     }
-    return render(request,'dashboard/staff/list.html', context)
-
-@login_required(login_url='login')
-def filtered(request, id):
-    employee = models.Employee.objects.filter(position=id)
-    return render(request, 'dashboard/staff/filtered.html', {'employees':employee})
+    return render(request,'dashboard/shiftstaff/list.html', context)
 
 @login_required(login_url='login')
 def create(request):
-    positions = models.Position.objects.all()
-    if request.method == 'POST':
-        is_active = request.POST.get('is_active', 'off')
-        if is_active == 'on':
-            status = True
-        else: 
-            status = False
-        position = models.Position.objects.get(id=request.POST['position'])
-        models.Employee.objects.create(
-            full_name=request.POST['full_name'],
-            is_active=status, 
-            position = position
-        )
-        return redirect('staff_list')
-    return render(request, 'dashboard/staff/create.html', {'positions':positions})
+    staff = models.Employee.objects.all()
+    shift = models.Shift.objects.all()
+    context = {
+        "staffs":staff,
+        "shifts":shift
+    }
+    if request.method=='POST':
+        employee = models.Employee.objects.get(id=request.POST['staff'])
+        shift = models.Shift.objects.get(id=request.POST['shift'])
+        models.StaffShift.objects.create(
+            employee=employee,
+            shift=shift
+            ) 
+        return redirect('staffShift_list')
+    return render(request, 'dashboard/shiftstaff/create.html', context)
 
 @login_required(login_url='login')
 def detail(request, id ):
