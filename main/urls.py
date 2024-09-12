@@ -9,4 +9,5 @@ urlpatterns = [
     path('shift/', include('main.shift.urls')),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
+    path('attendance/', views.attendance, name='attendance_list')
 ]

@@ -35,6 +35,6 @@ class StaffShiftAdmin(admin.ModelAdmin):
 # Admin Customization for StaffAttendance Model
 @admin.register(models.StaffAttendance)
 class StaffAttendanceAdmin(admin.ModelAdmin):
-    list_display = ("staff", "date")
-    list_filter = ("date", "staff")
-    search_fields = ("staff__full_name",)  # Enables searching by staff name
+    list_display = ("staff_shift", "check_in", "check_out",)
+    list_filter = ("check_in", "staff_shift",)
+    search_fields = ("staff_shift_employee__full_name",)  # Enables searching by staff name

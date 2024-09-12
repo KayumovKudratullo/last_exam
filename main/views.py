@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime
-from django.contrib.auth.decorators import login_required
+
+from . import models
 
 def main(request):
     now = datetime.now()
@@ -40,3 +41,7 @@ def login_view(request):
             login(request, user)
             return redirect('home')  # Redirect to a homepage or dashboard
     return render(request, 'login.html')
+
+def attendance(request):
+    attendance = models.StaffAttendance.objects.all()
+    return render(request, 'dashboard/attendance/list.html', {"attendances":attendance})
