@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from main import models
 
+ 
 class PositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Position
